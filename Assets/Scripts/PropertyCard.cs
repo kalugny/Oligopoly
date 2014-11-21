@@ -22,7 +22,8 @@ public class PropertyCard : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		closeButton.onClick.AddListener(() => mainPanel.SetActive(false));
+
+
 	}
 	
 	// Update is called once per frame

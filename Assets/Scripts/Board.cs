@@ -8,10 +8,12 @@ public class Board : MonoBehaviour {
 	public Transform tileContainer;
 	public Transform gamePieceContainer;
 	public DieRoll dieRoll;
-//	public PropertyCard propertyCard;
+	public GameObject lotteryCard;
+	public GameObject karmaCard;
 	public GameObject gamePiecePrefab;
 	public GameObject topHatPrefab;
 	public GameObject moneyPanelPrefab;
+	public GameObject moneyTextPrefab;
 	public RectTransform uiPanel; 
 	public Color[] gamePieceColors;
 	public List<int> cornerTiles;
@@ -29,6 +31,14 @@ public class Board : MonoBehaviour {
 	public Button helpWantedButton;
 	public Button continueButton;
 	public Image bgHeader; 
+	public Image purchasePanel;
+	public float purchasePanelAnimTime = 0.3f;
+	public float moneyTextAnimTime = 0.4f;
+	public float moneyTextAnimHeight = 50;
+	public Button getLoanButton;
+	public LoanPanel loanPanel;
+	public Sprite uniLoanSprite;
+	public Sprite regLoanSprite;
 
 	public int startingMoney = 200;
 	public int startingMoneyRich = 200000;
@@ -60,6 +70,8 @@ public class Board : MonoBehaviour {
 			p.moneyText = moneyPanel.GetComponentInChildren<Text>();
 			gamePieces.Add(p);
 		}
+
+
 
 	}
 
@@ -100,7 +112,7 @@ public class Board : MonoBehaviour {
 
 		gamePieces[0].cam.camera.enabled = false;
 
-		gamePieces[pos].hasJob = true;
+		// gamePieces[pos].hasJob = true;
 		gamePieces[pos].job = "Rich";
 
 		foreach (Piece p in gamePieces){
@@ -138,16 +150,40 @@ public class Board : MonoBehaviour {
 		Debug.Log("Dice: " + first + ", " + second);
 		int total = first + second;
 
+		if (Input.GetKey(KeyCode.Q)){
+			total = 2;
+		}
+		if (Input.GetKey(KeyCode.W)){
+			total = 7;
+		}
+		if (Input.GetKey(KeyCode.E)){
+			total = 42;
+		}
+
 		new Task(gamePieces[m_turn].Move (total));
 		m_turn = (m_turn + 1) % gamePieces.Count;
+		while (gamePieces[m_turn].missTurn){
+			gamePieces[m_turn].missTurn = false;
+			m_turn = (m_turn + 1) % gamePieces.Count;
+		}
 
 	}
 	
 	// Update is called once per frame
 	void Update () {
+
+		// getLoanButton.gameObject.SetActive(waitingForPlayer);
+
 		if (Input.GetKeyUp(KeyCode.Space) && waitingForPlayer){
 			waitingForPlayer = false;
 			StartCoroutine(dieRoll.RollDice(RollResult));
+		}
+
+		if (Input.GetKey(KeyCode.S)){
+			Time.timeScale = 2f;
+		}
+		else {
+			Time.timeScale = 1;
 		}
 	}
 }

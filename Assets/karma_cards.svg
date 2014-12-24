@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="400"
+   height="256"
+   id="svg2"
+   version="1.1"
+   inkscape:version="0.48.4 r9939"
+   sodipodi:docname="karma_cards.svg.2014_11_30_12_54_35.0.svg"
+   inkscape:export-filename="C:\Code\LudumDare\Monopoly\Assets\karma_cards.svg.2014_11_30_12_54_35.0.png"
+   inkscape:export-xdpi="90"
+   inkscape:export-ydpi="90">
+  <defs
+     id="defs4">
+    <linearGradient
+       inkscape:collect="always"
+       id="linearGradient3804">
+      <stop
+         style="stop-color:#880909;stop-opacity:1;"
+         offset="0"
+         id="stop3806" />
+      <stop
+         style="stop-color:#880909;stop-opacity:0;"
+         offset="1"
+         id="stop3808" />
+    </linearGradient>
+    <path
+       style="fill:none;stroke:#880909;stroke-width:1.29827583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 52.291995,932.5702 c 0,-28.23847 69.728845,-51.1303 155.743725,-51.1303 86.01488,0 155.74372,22.89183 155.74372,51.1303"
+       id="path2989-1"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="csc" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient3804"
+       id="linearGradient3810"
+       x1="34.662383"
+       y1="990.35546"
+       x2="370.00677"
+       y2="990.35546"
+       gradientUnits="userSpaceOnUse" />
+  </defs>
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="1.979899"
+     inkscape:cx="136.59845"
+     inkscape:cy="119.32625"
+     inkscape:document-units="px"
+     inkscape:current-layer="layer2"
+     showgrid="false"
+     showguides="true"
+     inkscape:guide-bbox="true"
+     inkscape:window-width="1920"
+     inkscape:window-height="1003"
+     inkscape:window-x="-9"
+     inkscape:window-y="-9"
+     inkscape:window-maximized="1" />
+  <metadata
+     id="metadata7">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:groupmode="layer"
+     id="layer2"
+     inkscape:label="Layer">
+    <rect
+       style="fill:#d6d9e6;fill-opacity:1;stroke:none"
+       id="rect3771"
+       width="401.42856"
+       height="256.78571"
+       x="-0.35714287"
+       y="0.28571585" />
+  </g>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(0,-796.36218)">
+    <text
+       xml:space="preserve"
+       style="font-size:90px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:122%;letter-spacing:-4.09px;word-spacing:0px;fill:#fdd735;fill-opacity:1;stroke:#880909;font-family:AngsanaUPC;-inkscape-font-specification:Curlz MT;stroke-opacity:1"
+       id="text2985"
+       sodipodi:linespacing="122%"><textPath
+         xlink:href="#path2989"
+         id="textPath2992"
+         style="font-size:90px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;fill:#fdd735;fill-opacity:1;stroke:#880909;stroke-opacity:1;font-family:Curlz MT;-inkscape-font-specification:Curlz MT;line-height:122%;letter-spacing:-4.09px">KARMA</textPath></text>
+    <path
+       style="fill:none;stroke:none;stroke-width:1.25988841000000010px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 96.201374,928.66081 c 0,-36.74119 50.469686,-66.52581 112.727186,-66.52581 62.25753,0 112.72721,29.78462 112.72721,66.52581"
+       id="path2989"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="csc" />
+    <path
+       style="fill:none;stroke:none;stroke-width:1.10206735000000000px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 96.193076,927.61699 c 0,28.1842 50.341954,51.03199 112.441904,51.03199 62.09996,0 112.44191,-22.84779 112.44191,-51.03199"
+       id="path3776"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="csc" />
+    <text
+       xml:space="preserve"
+       style="font-size:90px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#fdd735;fill-opacity:1;stroke:#880909;stroke-opacity:1;font-family:Curlz MT;-inkscape-font-specification:Curlz MT"
+       id="text3797"
+       sodipodi:linespacing="125%"><textPath
+         xlink:href="#path3776"
+         id="textPath3801"
+         style="font-size:90px;fill:#fdd735;fill-opacity:1;stroke:#880909;stroke-opacity:1;letter-spacing:0px"><tspan
+   id="tspan3799"
+   style="font-size:90px;letter-spacing:0px;fill:#fdd735;fill-opacity:1;stroke:#880909;stroke-opacity:1"
+   dy="60 0 0 0 1">CARDS</tspan></textPath></text>
+    <path
+       style="fill:#ffffff;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;fill-opacity:1"
+       d="m 102.14286,136 c 1.42857,-0.35714 24.99153,-52.210295 115.71428,-52.857142 77.49886,-0.552561 102.85714,52.142862 102.85714,52.142862 0,0 -26.43233,34.29043 -103.57142,35.71428 -80.71343,1.48982 -115,-35 -115,-35 z"
+       id="path3766"
+       inkscape:connector-curvature="0"
+       transform="translate(0,796.36218)"
+       sodipodi:nodetypes="cscsc" />
+    <path
+       sodipodi:type="arc"
+       style="fill:#64a6ff;fill-rule:evenodd;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;fill-opacity:1"
+       id="path3762"
+       sodipodi:cx="227.5"
+       sodipodi:cy="167.07143"
+       sodipodi:rx="40.357143"
+       sodipodi:ry="40.357143"
+       d="m 267.85714,167.07143 a 40.357143,40.357143 0 1 1 -80.71428,0 40.357143,40.357143 0 1 1 80.71428,0 z"
+       transform="matrix(1.0478786,0,0,1.0805517,-22.499509,742.97288)" />
+    <path
+       sodipodi:type="arc"
+       style="fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:none"
+       id="path3764"
+       sodipodi:cx="225.35715"
+       sodipodi:cy="136.35715"
+       sodipodi:rx="16.785715"
+       sodipodi:ry="16.785715"
+       d="m 242.14286,136.35715 a 16.785715,16.785715 0 1 1 -33.57143,0 16.785715,16.785715 0 1 1 33.57143,0 z"
+       transform="matrix(1.5106383,0,0,1.5106383,-124.00457,717.80443)" />
+    <path
+       sodipodi:type="arc"
+       style="fill:#ffffff;fill-opacity:1;fill-rule:evenodd;stroke:none"
+       id="path3773"
+       sodipodi:cx="212.51083"
+       sodipodi:cy="107.88638"
+       sodipodi:rx="11.743023"
+       sodipodi:ry="11.743023"
+       d="m 224.25386,107.88638 a 11.743023,11.743023 0 1 1 -23.48605,0 11.743023,11.743023 0 1 1 23.48605,0 z"
+       transform="translate(-12.879445,797.37233)" />
+    <path
+       sodipodi:type="arc"
+       style="fill:#ffffff;fill-opacity:1;fill-rule:evenodd;stroke:none"
+       id="path3773-1"
+       sodipodi:cx="212.51083"
+       sodipodi:cy="107.88638"
+       sodipodi:rx="11.743023"
+       sodipodi:ry="11.743023"
+       d="m 224.25386,107.88638 a 11.743023,11.743023 0 1 1 -23.48605,0 11.743023,11.743023 0 1 1 23.48605,0 z"
+       transform="matrix(0.51612902,0,0,0.51612902,117.47504,882.15284)" />
+  </g>
+</svg>

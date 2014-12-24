@@ -19,8 +19,17 @@ public class Piece : MonoBehaviour {
 
 	public bool hasJob;
 	public string job;
+	public int salary = 0;
 	public int money;
 	public List<Tile> properties;
+	public bool hasLoan = false;
+	public int loanRepayment;
+	public int loanTurnsLeft;
+	public bool anticonsumerism = false;
+	public Tile discountedTile = null;
+	public bool missTurn = false;
+	public bool overtime = false;
+	public bool negotiationSkills = false;
 
 	private int currentTileIndex = 0;
 
@@ -87,6 +96,47 @@ public class Piece : MonoBehaviour {
 		board.tiles[currentTileIndex].OnLand(this);
 
 //		cam.camera.enabled = false;
+	}
+
+	public IEnumerator ChangeMoneyMultiple(int[] amounts, string[] reasons){
+		for (int i = 0; i < amounts.Length; i++){
+			Task t = new Task(ChangeMoney(amounts[i], reasons[i]));
+			while (t.Running){
+				yield return new WaitForEndOfFrame();
+			}
+		}
+	}
+
+	public IEnumerator ChangeMoney(int amount, string reason){
+		string moneyStr = '$' + Mathf.Abs(amount).ToString("n0");
+
+		GameObject m = Instantiate(board.moneyTextPrefab) as GameObject;
+		m.transform.SetParent(moneyText.transform.parent);
+
+		Vector2 size = m.transform.parent.GetComponent<RectTransform>().sizeDelta;
+		size.y = board.moneyTextAnimHeight;
+		m.GetComponent<RectTransform>().sizeDelta = size;
+
+		Text tex = m.GetComponent<Text>();
+		if (amount > 0){
+			tex.color = Color.green;
+			tex.text = reason + ":\n" + moneyStr;
+		}
+		else {
+			tex.color = Color.red;
+			tex.text = reason + ":\n-" + moneyStr;
+		}
+
+		money += amount;
+
+		for (float t = 0; t < board.moneyTextAnimTime; t += Time.deltaTime){
+			m.transform.localPosition = Vector3.Lerp (Vector3.zero, new Vector3(0, board.moneyTextAnimHeight), t / board.moneyTextAnimTime);
+			yield return new WaitForEndOfFrame();
+		}
+
+		Destroy(m);
+
+
 	}
 	
 }

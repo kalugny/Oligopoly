@@ -15,9 +15,7 @@ public class SpeechBubble : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		if (Input.GetKeyUp(KeyCode.A)){
-			StartCoroutine(Say("aasdvjaopsjvasdv asdlfj aopsdjf opasdjflpasjdf sdjf ;alsdfj l;a sjdfl;as djfl;ka jdsf;a", 1));
-		}
+
 	}
 
 	public IEnumerator Say(string text, float time){

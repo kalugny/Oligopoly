@@ -23,6 +23,8 @@ public class Tile : MonoBehaviour {
 	public bool hasProduct;
 	public string productName;
 	public int productCost;
+	public bool uniqueProduct;
+	public bool immuneToAnticonsumerism = false;
 	public bool hasJob;
 	public string jobName;
 	public int jobSalary;
@@ -33,13 +35,24 @@ public class Tile : MonoBehaviour {
 	public Piece owner = null;
 	public Vector3 salesmanStartPos;
 	public Vector3 salesmanEndPos;
-	public string[] conversations;
+	public string[] introConversations;
+	public string[] richIntroCoversations;
+	public string[] ownerIntroConversatios;
+	public string[] saleConversations;
+	public string[] noSaleCoversations;
+	public string[] jobSuccessConversations;
+	public string[] jobFailConversations;
+	public string[] jobNotQualifyConversations;
+	public string[] buySuccessCoversations;
+	public string[] buyFailConversations;
+
 
 	private bool m_inStore = false;
+	private bool m_wantJob = false;
+	private bool m_wantBuy = false;
 
 	// Use this for initialization
 	void Start () {
-	
 	}
 	
 	// Update is called once per frame
@@ -91,12 +104,10 @@ public class Tile : MonoBehaviour {
 		}
 	}
 
-	public void OnPass(Piece gamePiece){
-		Debug.Log("OnPass " + this.ToString());
+	public virtual void OnPass(Piece gamePiece){
 	}
 
-	public void OnLand(Piece gamePiece){
-		Debug.Log("OnLand " + this.ToString());
+	public virtual void OnLand(Piece gamePiece){
 		if (showCard){
 			StartCoroutine(AnimateEncounter(gamePiece));
 		}
@@ -104,58 +115,6 @@ public class Tile : MonoBehaviour {
 			board.waitingForPlayer = true;
 			gamePiece.cam.enabled = false;
 		}
-
-//		if (showCard){
-//			PropertyCard card = board.propertyCard;
-//			card.mainPanel.SetActive(true);
-//
-//			card.titleText.text = tileName;
-//			card.titlePanel.color = color;
-//			card.titleText.color = textColor;
-//
-//			bool jobActive = hasJob && gamePiece.job != "Rich" && jobHolder == null;
-//			card.jobSection.SetActive(jobActive);
-//			if (jobActive){
-//				card.jobTitle.text = jobName;
-//				card.salary.text = "$" + jobSalary + "/w";
-//				card.applyForJobButton.onClick.AddListener(() => ApplyForJob(gamePiece));
-//				card.applyForJobButton.interactable = true;
-//				card.applyForJobButton.GetComponentInChildren<Text>().text = "Apply for the job";
-//			}
-//			card.productSection.SetActive(hasProduct);
-//			if (hasProduct){
-//				card.productText.text = productName;
-//				card.productCost.text = "$" + productCost;
-//				card.productText.GetComponent<Animator>().SetTrigger("Highlight");
-//				card.productCost.GetComponent<Animator>().SetTrigger("Highlight");
-//
-//				gamePiece.money -= productCost;
-//				if (owner != null){
-//					owner.money += productCost;
-//				}
-//			}
-//
-//			card.propertySection.SetActive(isBuyable);
-//			if (isBuyable){
-//				if (owner == null){
-//					card.buyPropertyButton.enabled = true;
-//					card.proprtyButtonText.text = "Buy property for " + propertyCost;
-//					card.buyPropertyButton.interactable = gamePiece.money >= propertyCost;
-//					card.buyPropertyButton.onClick.RemoveAllListeners();
-//					card.buyPropertyButton.onClick.AddListener(() => BuyProperty(gamePiece));
-//					card.buyPropertyButton.image.color = Color.white;
-//					card.proprtyButtonText.color = Color.black;
-//				}
-//				else {
-//					card.proprtyButtonText.text = "Under new ownership!";
-//					card.proprtyButtonText.color = Color.white;
-//					card.buyPropertyButton.enabled = false;
-//					card.buyPropertyButton.image.color = owner.color;
-//				}
-//			}
-//
-//			return false;
-//		}
 	}
 
 	void BuyProperty(Piece gamePiece){
@@ -163,37 +122,13 @@ public class Tile : MonoBehaviour {
 		gamePiece.properties.Add(this);
 		owner = gamePiece;
 		SetFlag(gamePiece.color);
-//		PropertyCard card = board.propertyCard;
-//		card.proprtyButtonText.text = "Under new ownership!";
-//		card.proprtyButtonText.color = Color.white;
-//		card.buyPropertyButton.enabled = false;
-//		card.buyPropertyButton.image.color = owner.color;
 	}
 
-	void ApplyForJob(Piece gamePiece){
-//		Text buttonText = board.propertyCard.applyForJobButton.GetComponentInChildren<Text>();
-//		foreach (string req in requirements){
-//			if (!gamePiece.qualifications.Contains(req)){
-//				Debug.Log ("Missing requirement: " + req);
-//				buttonText.text = "Sorry, we're looking for someone who has a " + req;
-//				return;
-//			}
-//		}
-//
-//		if (Random.value <= jobChances){
-//			// got the job
-//			gamePiece.job = jobName;
-//			gamePiece.hasJob = true;
-//			jobHolder = gamePiece;
-//
-//			buttonText.text = "You're hired!";
-//
-//		}
-//		else {
-//			buttonText.text = "Sorry, maybe next time...";
-//		}
-//
-//		board.propertyCard.applyForJobButton.interactable = false;
+	void GetJob(Piece gamePiece){
+		gamePiece.job = jobName;
+		gamePiece.hasJob = true;
+		jobHolder = gamePiece;
+		gamePiece.salary = Mathf.RoundToInt(jobSalary * (gamePiece.negotiationSkills ? 1.5f : 1));
 	}
 
 	public void SetFlag(Color color){
@@ -206,14 +141,32 @@ public class Tile : MonoBehaviour {
 		flag.GetComponent<Flag>().SetColor(color);
 	}
 
+	public virtual bool ShouldBuy(Piece gamePiece){
+
+		if (!hasProduct) return false;
+
+		if (gamePiece.qualifications.Contains(productName) && uniqueProduct){
+			return false;
+		}
+
+		if (!immuneToAnticonsumerism && gamePiece.anticonsumerism && Random.value > 0.5f) {
+			return false;
+		}
+		return true;
+	}
+
 	public IEnumerator AnimateEncounter(Piece gamePiece){
 
 		m_inStore = true;
+		m_wantBuy = false;
+		m_wantJob = false;
 
 		RectTransform c = board.bgCanvas;
 		c.gameObject.SetActive(true);
 		c.SetParent(transform);
-		c.anchoredPosition = screenPosition;
+		c.localRotation = Quaternion.Euler(0, 270 + direction, 0);
+		c.localPosition = screenPosition;
+
 
 		board.bgHeader.color = color;
 		Text headerText = board.bgHeader.GetComponentInChildren<Text>();
@@ -229,11 +182,30 @@ public class Tile : MonoBehaviour {
 			board.forSaleButton.GetComponentInChildren<Text>().text = "$" + propertyCost.ToString("n0");
 		}
 
+		bool isUni = this is UniversityTile;
+		board.getLoanButton.image.sprite = isUni ? board.uniLoanSprite : board.regLoanSprite;
+		board.getLoanButton.gameObject.SetActive(!gamePiece.hasLoan);
+
 		board.continueButton.onClick.RemoveAllListeners();
 		board.continueButton.onClick.AddListener(ContinuePressed);
 		board.continueButton.interactable = false;
 
-		c.GetComponent<Animator>().SetTrigger("Lower");
+		board.helpWantedButton.onClick.RemoveAllListeners();
+		board.helpWantedButton.onClick.AddListener(() => m_wantJob = true);
+		board.helpWantedButton.interactable = false;
+
+		board.forSaleButton.onClick.RemoveAllListeners();
+		board.forSaleButton.onClick.AddListener(() => m_wantBuy = true);
+		board.forSaleButton.interactable = false;
+
+		board.getLoanButton.onClick.RemoveAllListeners();
+		board.getLoanButton.onClick.AddListener(() => {
+			board.loanPanel.gameObject.SetActive(true);
+			board.loanPanel.Show (gamePiece, isUni);
+		});
+		board.getLoanButton.interactable = false;
+
+		c.GetComponentInChildren<Animator>().SetTrigger("Lower");
 
 		c.GetComponent<Canvas>().worldCamera = gamePiece.cam;
 
@@ -250,22 +222,132 @@ public class Tile : MonoBehaviour {
 		}
 		salesman.transform.localPosition = salesmanEndPos;
 
-		string conversation = conversations[Random.Range(0, conversations.Length - 1)];
-		List<KeyValuePair<SpeechBubble, string> >  convo = parseCoveration(conversation);
+		string[] introConvos = introConversations;
+		if (gamePiece.job == "Rich"){
+			introConvos = richIntroCoversations;
+		}
+		if (gamePiece == owner){
+			introConvos = ownerIntroConversatios;
+		}
+		Task introConvo = new Task(ChooseAndAnimateConversation(introConvos));
+		while (introConvo.Running){
+			yield return new WaitForEndOfFrame();
+		}
 
-		foreach (KeyValuePair<SpeechBubble, string> line in convo){
-			Task t = new Task(line.Key.Say(line.Value, board.textSpeed));
-			while (t.Running){
+		if (ShouldBuy(gamePiece)){
+		
+			Task saleConvo = new Task(ChooseAndAnimateConversation(saleConversations));
+			while (saleConvo.Running){
+				yield return new WaitForEndOfFrame();
+			}
+
+			if (owner != gamePiece){
+				if (gamePiece.discountedTile != this){
+					StartCoroutine(gamePiece.ChangeMoney(-productCost, productName));
+				}
+				else {
+					gamePiece.discountedTile = null;
+				}
+			}
+
+			if (owner != null){
+				StartCoroutine(owner.ChangeMoney(productCost, "Profit"));
+			}
+
+			for (float t = 0; t < board.purchasePanelAnimTime; t += Time.deltaTime){
+				board.purchasePanel.transform.localScale = Vector3.Lerp(new Vector3(0, 0, 1), Vector3.one, t / board.purchasePanelAnimTime);
+				yield return new WaitForEndOfFrame();
+			}
+			board.purchasePanel.transform.localScale = Vector3.one;
+
+			if (!gamePiece.qualifications.Contains(productName)){
+				gamePiece.qualifications.Add(productName);
+			}
+
+			while (Input.GetKey(KeyCode.Space)){
+				yield return new WaitForEndOfFrame();
+			}
+			while (!Input.GetKey(KeyCode.Space)){
+				yield return new WaitForEndOfFrame();
+			}
+
+			for (float t = 0; t < board.purchasePanelAnimTime; t += Time.deltaTime){
+				board.purchasePanel.transform.localScale = Vector3.Lerp(Vector3.one, new Vector3(0, 0, 1), t / board.purchasePanelAnimTime);
+				yield return new WaitForEndOfFrame();
+			}
+			board.purchasePanel.transform.localScale = new Vector3(0, 0, 1);
+		}
+		else {
+			Task noSaleConvo = new Task(ChooseAndAnimateConversation(noSaleCoversations));
+			while (noSaleConvo.Running){
 				yield return new WaitForEndOfFrame();
 			}
 		}
 
 		board.continueButton.interactable = true;
+		board.helpWantedButton.interactable = true;
+		board.forSaleButton.interactable = true;
+		board.getLoanButton.interactable = true;
+
 		while (m_inStore){
+
+			if (m_wantBuy){
+				m_wantBuy = false;
+				board.forSaleButton.interactable = false;
+				board.continueButton.interactable = false;
+
+				bool canBuy = gamePiece.money >= propertyCost;
+
+				Task buyConvoTask = new Task(ChooseAndAnimateConversation(canBuy ? buySuccessCoversations : buyFailConversations));
+				while (buyConvoTask.Running){
+					yield return new WaitForEndOfFrame();
+				}
+
+				if (canBuy){
+					BuyProperty(gamePiece);
+				}
+
+				board.continueButton.interactable = true;
+			}
+
+			if (m_wantJob){
+				m_wantJob = false;
+				board.helpWantedButton.interactable = false;
+				board.continueButton.interactable = false;
+
+				string[] hireConvos = jobSuccessConversations;
+				bool gotJob = true;
+
+				foreach (string req in requirements){
+					if (!gamePiece.qualifications.Contains(req)){
+						Debug.Log ("Missing requirement: " + req);
+						hireConvos = jobNotQualifyConversations;
+						gotJob = false;
+						break;
+					}
+				}
+
+				if (gotJob && Random.value > jobChances){
+					hireConvos = jobFailConversations;
+					gotJob = false;
+				}
+
+				Task hireConvoTask = new Task(ChooseAndAnimateConversation(hireConvos));
+				while (hireConvoTask.Running){
+					yield return new WaitForEndOfFrame();
+				}
+
+				if (gotJob){
+					GetJob(gamePiece);
+				}
+
+				board.continueButton.interactable = true;
+			}
+
 			yield return new WaitForEndOfFrame();
 		}
 
-		Animator animator = c.GetComponent<Animator>();
+		Animator animator = c.GetComponentInChildren<Animator>();
 		animator.SetTrigger("Raise");
 		while (!animator.GetCurrentAnimatorStateInfo(0).IsName("disabled")){
 			yield return new WaitForEndOfFrame();
@@ -282,6 +364,21 @@ public class Tile : MonoBehaviour {
 	public void ContinuePressed(){
 		m_inStore = false;
 	}
+
+	IEnumerator ChooseAndAnimateConversation(string[] conversations){
+
+		string conversation = conversations[Random.Range(0, conversations.Length - 1)];
+
+		List<KeyValuePair<SpeechBubble, string> >  convo = parseCoveration(conversation);
+		
+		foreach (KeyValuePair<SpeechBubble, string> line in convo){
+			Task t = new Task(line.Key.Say(line.Value, board.textSpeed));
+			while (t.Running){
+				yield return new WaitForEndOfFrame();
+			}
+		}
+	}
+
 
 	List<KeyValuePair<SpeechBubble, string> > parseCoveration(string coversation){
 		string [] lines = coversation.Split(';');
